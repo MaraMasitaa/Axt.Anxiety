@@ -1,0 +1,52 @@
+[
+   
+    {
+      "id": 1,
+      "name": "006 Front",
+      "price": 35.00,
+      "image": "img/006front.png"
+    },
+    {
+      "id": 2,
+      "name": "006 Back",
+      "price": 35.00,
+      "image": "img/006back.png"
+    },
+    {
+      "id": 3,
+      "name": "007 Back",
+      "price": 35.00,
+      "image": "img/007.png"
+    },
+    {
+      "id": 4,
+      "name": "007 Front",
+      "price": 35.00,
+      "image": "img/007-front.png"
+    },
+    {
+      "id": 5,
+      "name": "008 Back",
+      "price": 25.00,
+      "image": "img/008.png"
+    },
+    {
+      "id": 6,
+      "name": "008 Front",
+      "price": 25.00,
+      "image": "img/008front.png"
+    },
+    {
+      "id": 7,
+      "name": "009 Back",
+      "price": 25.00,
+      "image": "img/009front.png"
+    },
+    {
+      "id": 8,
+      "name": "009 Front",
+      "price": 25.00,
+      "image": "img/009back.png"
+    }
+  ]
+  
