@@ -47,6 +47,47 @@
       "name": "009 Front",
       "price": 25.00,
       "image": "img/009back.png"
+    },
+    {
+      "id": 9,
+      "name": "010 Front",
+      "price": 25.00,
+      "image": "img/010front.JPEG"
+    },
+    {
+      "id": 10,
+      "name": "010 Back",
+      "price": 25.00,
+      "image": "img/010back.JPEG"
+
+    },
+    {
+      "id": 11,
+      "name": "011 Front",
+      "price": 25.00,
+      "image": "img/011front.JPEG"
+
+    },
+    {
+      "id": 12,
+      "name": "011 Back",
+      "price": 25.00,
+      "image": "img/011back.JPEG"
+
+    },
+    {
+      "id": 13,
+      "name": "012 Front",
+      "price": 35.00,
+      "image": "img/012front.JPEG"
+
+    },
+    {
+      "id": 14,
+      "name": "012 Back",
+      "price": 35.00,
+      "image": "img/012back.JPEG"
+
     }
   ]
   
