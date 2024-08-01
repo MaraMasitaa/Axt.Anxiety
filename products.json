@@ -78,14 +78,14 @@
     {
       "id": 13,
       "name": "012 Front",
-      "price": 35.00,
+      "price": 38.00,
       "image": "img/012front.JPEG"
 
     },
     {
       "id": 14,
       "name": "012 Back",
-      "price": 35.00,
+      "price": 38.00,
       "image": "img/012back.JPEG"
 
     }
