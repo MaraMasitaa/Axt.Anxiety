@@ -88,6 +88,20 @@
       "price": 38.00,
       "image": "img/012back.JPEG"
 
+    },
+    {
+      "id": 15,
+      "name": "013 Front",
+      "price": 40.00,
+      "image": "img/013front.JPEG"
+
+    },
+    {
+      "id": 16,
+      "name": "013 Back",
+      "price": 40.00,
+      "image": "img/013back.JPEG"
+
     }
   ]
   
