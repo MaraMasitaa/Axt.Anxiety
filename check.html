@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Checkout</title>
+    <style>
+        body {
+            font-family: 'Courier New', Courier, monospace;
+            background-color: #111;
+            color: #fff;
+            margin: 0;
+            padding: 20px;
+            max-width: 800px;
+            margin: auto;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .logo {
+            height: 100px;
+            width: auto;
+        }
+
+        h1 {
+            font-size: 28px;
+            margin-bottom: 20px;
+            text-align: center;
+            letter-spacing: 1px;
+        }
+
+        .cart-items {
+            margin-bottom: 20px;
+        }
+
+        .cart-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px;
+            background-color: #222;
+            margin-bottom: 10px;
+            border: 1px solid #333;
+        }
+
+        .cart-item img {
+            width: 60px;
+            height: auto;
+            border: 1px solid #333;
+        }
+
+        .cart-item-info {
+            flex-grow: 1;
+            margin-left: 20px;
+        }
+
+        .cart-item-info h3 {
+            margin: 0;
+            font-size: 18px;
+        }
+
+        .cart-item-info p {
+            margin: 5px 0;
+            font-size: 14px;
+        }
+
+        .cart-item-info .price {
+            color: #ff0099;
+        }
+
+        .cart-item-remove {
+            background-color: #ff0099;
+            color: #fff;
+            padding: 5px 10px;
+            border: none;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .cart-item-remove:hover {
+            background-color: #e60080;
+        }
+
+        .user-info {
+            margin-bottom: 20px;
+            background-color: #222;
+            padding: 15px;
+            border: 1px solid #333;
+        }
+
+        .user-info label {
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        .user-info input,
+        .user-info select {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            border: none;
+            background-color: #333;
+            color: #fff;
+        }
+
+        .total-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px;
+            background-color: #222;
+            margin-top: 20px;
+            border: 1px solid #333;
+            font-size: 18px;
+        }
+
+        .total-container .total-price {
+            color: #ff0099;
+            font-weight: bold;
+        }
+
+        .checkout-button {
+            display: block;
+            background-color: #000;
+            color: #fff;
+            border: 2px solid #fff;
+            padding: 15px 30px;
+            font-size: 16px;
+            cursor: pointer;
+            margin: 20px auto;
+            text-align: center;
+            transition: background-color 0.3s ease;
+        }
+
+        .checkout-button:hover {
+            background-color: #333;
+        }
+
+        .back-link {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .back-link a {
+            color: #fff;
+            text-decoration: none;
+            font-size: 16px;
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <img src="./img/axtt.PNG" alt="Logo" class="logo">
+    </header>
+    <h1>Checkout</h1>
+
+    <div class="cart-items" id="cart-items">
+        <!-- Cart items will be injected here -->
+    </div>
+
+    <div class="user-info">
+        <label for="name">Name:</label>
+        <input type="text" id="name" placeholder="Enter your name" required>
+
+        <label for="phone">Phone Number:</label>
+        <input type="text" id="phone" placeholder="Enter your phone number" required>
+
+        <label for="address">Delivery Address:</label>
+        <input type="text" id="address" placeholder="Enter your address" required>
+
+        <label for="payment-method">Payment Method:</label>
+        <select id="payment-method">
+            <option value="cash">Cash</option>
+            <option value="aba">ABA Pay</option>
+        </select>
+    </div>
+
+    <div class="total-container">
+        <p>Total (including $2 delivery):</p>
+        <p class="total-price" id="total-price">$0.00</p>
+    </div>
+
+    <button class="checkout-button" onclick="proceedToPayment()">Confirm Order</button>
+
+    <div class="back-link">
+        <a href="index.html">&lt; Back to Shopping</a>
+    </div>
+
+    <script>
+        // Load cart items from localStorage
+        function loadCartItems() {
+            const cartItemsContainer = document.getElementById('cart-items');
+            const cart = JSON.parse(localStorage.getItem('cart')) || [];
+            
+            if (cart.length === 0) {
+                cartItemsContainer.innerHTML = '<p>No items in cart.</p>';
+                return;
+            }
+
+            cartItemsContainer.innerHTML = ''; // Clear the container
+
+            cart.forEach((item, index) => {
+                const cartItem = document.createElement('div');
+                cartItem.className = 'cart-item';
+                cartItem.innerHTML = `
+                    <img src="${item.image}" alt="${item.name}">
+                    <div class="cart-item-info">
+                        <h3>${item.name}</h3>
+                        <p class="price">$${item.price.toFixed(2)}</p>
+                       
+                    </div>
+                    <button class="cart-item-remove" onclick="removeItem(${index})">Remove</button>
+                `;
+                cartItemsContainer.appendChild(cartItem);
+            });
+
+            updateTotal();
+        }
+
+        // Function to remove an item from the cart
+        function removeItem(index) {
+            const cart = JSON.parse(localStorage.getItem('cart')) || [];
+            cart.splice(index, 1);
+            localStorage.setItem('cart', JSON.stringify(cart));
+            loadCartItems();
+        }
+
+        // Function to update the total price after removing an item
+        function updateTotal() {
+            const totalElement = document.getElementById('total-price');
+            let total = 0;
+            const cart = JSON.parse(localStorage.getItem('cart')) || [];
+
+            cart.forEach(item => {
+                total += item.price;
+            });
+
+            // Add delivery fee of $2
+            total += 2;
+            totalElement.textContent = `$${total.toFixed(2)}`;
+        }
+
+        // Function to proceed to payment
+        function proceedToPayment() {
+            const name = document.getElementById('name').value;
+            const phone = document.getElementById('phone').value;
+            const address = document.getElementById('address').value;
+            const paymentMethod = document.getElementById('payment-method').value;
+            const totalPrice = document.getElementById('total-price').textContent;
+
+            if (name && phone && address) {
+                const orderDetails = {
+                    name: name,
+                    phone: phone,
+                    address: address,
+                    paymentMethod: paymentMethod,
+                    totalPrice: totalPrice
+                };
+
+                // Save order details to localStorage
+                localStorage.setItem('orderDetails', JSON.stringify(orderDetails));
+
+                // Redirect to the receipt page
+                window.location.href = 'receipt1.html';
+            } else {
+                alert('Please fill in all the required fields.');
+            }
+        }
+
+        // Load the cart items on page load
+        document.addEventListener('DOMContentLoaded', loadCartItems);
+    </script>
+</body>
+
+</html>

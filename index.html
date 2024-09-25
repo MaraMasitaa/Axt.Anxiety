@@ -1,376 +1,295 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="utf-8">
-    <title>ANXIETY</title>
-    <meta content="width=device-width, initial-scale=1.0" name="viewport">
-    <meta content="Free HTML Templates" name="keywords">
-    <meta content="Free HTML Templates" name="description">
-    <link rel="icon" type="image/png" href="/img/logoaxtbg.png" />
-    <link rel="preconnect" href="https://fonts.gstatic.com">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap"
-        rel="stylesheet">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
-    <link href="lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
-    <link href="css/style.css" rel="stylesheet">
-    <link rel="stylesheet" href="./css/shop.css">
-    <!-- Font Awesome -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" integrity="sha512-SOMEHASH" crossorigin="anonymous" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Anxiety</title>
+    <link rel="icon" type="image/png" href="/img/logoaxtbg.png">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" integrity="sha384-k6RqeWeci5ZR/Lv4MR0sA0FfDOMp8tzh4mZnXpsBQhB5quWEM3dBo64w5zEnybu6" crossorigin="anonymous">
+    <link rel="stylesheet" href="css/index.css"/>
+    <style>
+        .quantity-btn {
+            padding: 2px 6px;
+            font-size: 12px;
+            width: 24px;
+            height: 24px;
+            line-height: 20px;
+            text-align: center;
+            margin: 0 5px;
+            cursor: pointer;
+        }
 
-    <!-- Link to Font Awesome for icons -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" integrity="sha512-..." crossorigin="anonymous">
-  
+        .cart-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 10px 0;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .cart-item img {
+            width: 40px;
+            height: auto;
+            margin-right: 10px;
+        }
+
+        .product-info {
+            display: flex;
+            align-items: center;
+        }
+
+        .quantity-controls {
+            display: flex;
+            align-items: center;
+        }
+
+        .selected {
+            font-weight: bold;
+            border: 1px solid #000;
+        }
+    </style>
 </head>
 <body>
-    <div class="container-fluid">
-        <div class="row bg-secondary py-2 px-xl-5">
-            <div class="col-lg-6 d-none d-lg-block">
-                <div class="d-inline-flex align-items-center">
-                    <a class="text-dark" href="">FAQs</a>
-                    <span class="text-muted px-2">|</span>
-                    <a class="text-dark" href="">Help</a>
-                    <span class="text-muted px-2">|</span>
-                    <a class="text-dark" href="">Support</a>
-                </div>
-            </div>
-            <div class="col-lg-6 text-center text-lg-right">
-                <div class="d-inline-flex align-items-center">
-                    <a class="text-dark px-2"
-                        href="https://www.facebook.com/profile.php?id=61553381810843&mibextid=LQQJ4d">
-                        <i class="fab fa-facebook-f"></i>
-                    </a>
-                    <a class="text-dark px-2" href="https://www.tiktok.com/@axt_anxiety?_t=8mixN47yW5C&_r=1">
-                        <i class="fab fa-tiktok"></i>
-                    </a>
+    <header class="header">
+        <div class="logo">
+            <img src="./img/axtt.PNG" alt="Anxiety Logo" style="display: block; margin: 0 auto; height: 100px; width: auto;">
 
-                    <a class="text-dark px-2"
-                        href="https://www.instagram.com/anxiety.axt?igsh=MXQyYmNjOTAybmw2Zg%3D%3D&utm_source=qr">
-                        <i class="fab fa-instagram"></i>
-                    </a>
-                    <a class="text-dark px-2" href="https://t.me/ISSAC2010">
-                        <i class="fa fa-telegram"></i>
-                    </a>
+        </div>
+        <div class="header-icons">
+            <span class="icon">🔍</span>
+            <div class="cart-icon-container" onclick="toggleCart()">
+                <span class="icon">🛒<span class="cart-count" id="cart-count">0</span></span>
+                <div class="cart-dropdown" id="cart-dropdown" style="display: none;">
+                    <div class="cart-items"></div>
+                    <p>Delivery fee: $2</p>
+                    <p class="total" id="cart-total">Total: $0.00</p>
+                    <button onclick="checkout()">Checkout</button>
                 </div>
             </div>
         </div>
-        <div class="row align-items-center py-3 px-xl-5">
-            <div class="col-lg-3 d-none d-lg-block">
-                <a href="" class="text-decoration-none">
-                    <h1 class="m-0 display-5 font-weight-semi-bold"><span
-                            class="text-primary font-weight-bold border px-3 mr-1">ANXIETY</span>AXT</h1>
-                </a>
-            </div>
-            <div class="col-lg-6 col-6 text-left">
-                <form action="">
-                    <div class="input-group">
-                        <input type="text" class="form-control" placeholder="Search for products">
-                        <div class="input-group-append">
-                            <span class="input-group-text bg-transparent text-primary">
-                                <i class="fa fa-search"></i>
-                            </span>
-                        </div>
+    </header>
+
+    <main>
+        <section class="product-grid" id="product-grid">
+            <!-- Products will be added here by JavaScript -->
+        </section>
+    </main>
+
+    <footer class="footer">
+        <p>&copy; 2024 Anxiety. All rights reserved.</p>
+        <p><a href="#">Privacy Policy</a> | <a href="#">Terms of Service</a></p>
+    </footer>
+
+    <script>
+        const products = [
+          
+            { id: '012', name: '012', price: 35.00, img: './img/012front.JPEG' },
+            { id: '013', name: '013', price: 48.00, img: './img/013front.JPEG' },
+            { id: '017', name: '017', price: 25.00, img: './img/A18.png' },
+            { id: '018', name: '018', price: 25.00, img: './img/A19.png' },
+            { id: '019', name: '019', price: 25.00, img: './img/A20.png' },
+            { id: '016', name: 'Cap', price: 25.00, img: './img/cap.png', colors: ['Pink', 'Black', 'Camo'] }
+        ];
+    
+        const productGrid = document.getElementById('product-grid');
+        const deliveryFee = 2.00;
+        let cartItems = JSON.parse(localStorage.getItem('cartItems')) || [];
+        const selectedSizes = {};
+    
+        // Render products
+        products.forEach(product => {
+            const productCard = document.createElement('div');
+            productCard.className = 'product-card';
+    
+            let selectionHtml = '';
+    
+            if (product.id === '016') {
+                // If product is cap, show color options instead of size
+                selectionHtml = `
+                    <div class="color-selector" id="color-${product.id}">
+                        <div class="color-option" onclick="selectColor('Pink', 'color-${product.id}')">Pink</div>
+                        <div class="color-option" onclick="selectColor('Black', 'color-${product.id}')">Black</div>
+                        <div class="color-option" onclick="selectColor('Camo', 'color-${product.id}')">Camo</div>
                     </div>
-                </form>
-            </div>
-        </div>
-    </div>
-
-
-
-    <div class="container-fluid mb-5">
-        <div class="row border-top px-xl-5">
-            <div class="col-lg-3 d-none d-lg-block">
-                <a class="btn shadow-none d-flex align-items-center justify-content-between bg-primary text-white w-100"
-                    data-toggle="collapse" href="#navbar-vertical"
-                    style="height: 65px; margin-top: -1px; padding: 0 30px;">
-                    <h6 class="m-0" style="color: #fff;">Categories</h6>
-                    <i class="fa fa-angle-down text-dark"></i>
-                </a>
-                <nav class="collapse show navbar navbar-vertical navbar-light align-items-start p-0 border border-top-0 border-bottom-0"
-                    id="navbar-vertical">
-                    <div class="navbar-nav w-100 overflow-hidden" style="height: 410px">
-
-                        <a href="" class="nav-item nav-link">Shirts</a>
-                        <a href="" class="nav-item nav-link">Hoodie</a>
-
+                `;
+            } else {
+                // For other products, show size options
+                selectionHtml = `
+                    <div class="size-selector" id="size-${product.id}">
+                        <div class="size-option" onclick="selectSize('S', 'size-${product.id}')">S</div>
+                        <div class="size-option" onclick="selectSize('M', 'size-${product.id}')">M</div>
+                        <div class="size-option" onclick="selectSize('L', 'size-${product.id}')">L</div>
                     </div>
-                </nav>
-            </div>
-            <div class="col-lg-9">
-                <nav class="navbar navbar-expand-lg bg-light navbar-light py-3 py-lg-0 px-0">
-                    <a href="" class="text-decoration-none d-block d-lg-none">
-                        <h1 class="m-0 display-5 font-weight-semi-bold"><span
-                                class="text-primary font-weight-bold border px-3 mr-1" style="color: #000;">AXT</span style="color: #000;">ANXIETY</h1>
-                    </a>
-                    <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbarCollapse">
-                        <span class="navbar-toggler-icon"></span>
+                `;
+            }
+    
+            productCard.innerHTML = `
+                <img src="${product.img}" alt="${product.name}">
+                <h3>${product.name}</h3>
+                <p class="price">$${product.price.toFixed(2)}</p>
+                ${selectionHtml}
+                <div class="product-actions">
+                    <button onclick="addToCart('${product.id}', ${product.price}, '${product.id === '016' ? 'color' : 'size'}-${product.id}', '${product.img}')">
+                        <i class="fas fa-cart-plus"></i> Add to Cart
                     </button>
-                    <div class="collapse navbar-collapse justify-content-between" id="navbarCollapse">
-                        <div class="navbar-nav mr-auto py-0">
-                            <a href="index.html" class="nav-item nav-link active">Home</a>
-                            <a href="#shop" class="nav-item nav-link">Product</a>
-
-                          
-                            <a href="#contact" class="nav-item nav-link">Contact</a>
-                        </div>
-                       
-                    </div>
-                </nav>
-                <div id="header-carousel" class="carousel slide" data-ride="carousel">
-                    <div class="carousel-inner">
-                        <div class="carousel-item active" style="height: 410px;">
-                            <img class="img-fluid" src="img/promo1.JPEG" alt="Image">
-                            <div class="carousel-caption d-flex flex-column align-items-center justify-content-center">
-                                <div class="p-3" style="max-width: 700px;">
-                                    <h4 class="text-light text-uppercase font-weight-medium mb-3">FEAR OF BEKSLOY</h4>
-                                    <h3 class="display-4 text-white font-weight-semi-bold mb-4">EMBRACE YOUR FEAR</h3>
-                                    <a href="#shop" class="bti btn-light py-2 px-3">Shop Now</a>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="carousel-item" style="height: 410px;">
-                            <img class="img-fluid" src="img/promo2.JPEG" alt="Image">
-                            <div class="carousel-caption d-flex flex-column align-items-center justify-content-center">
-                                <div class="p-3" style="max-width: 700px;">
-                                    <h4 class="text-light text-uppercase font-weight-medium mb-3">KAMPUCHEA KIDS</h4>
-                                    <h3 class="display-4 text-white font-weight-semi-bold mb-4">EMBRACE YOUR FEAR</h3>
-                                    <a href="#shop" class="bti btn-light py-2 px-3">Shop Now</a>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="carousel-item" style="height: 410px;">
-                            <img class="img-fluid" src="img/promo3.JPEG" alt="Image">
-                            <div class="carousel-caption d-flex flex-column align-items-center justify-content-center">
-                                <div class="p-3" style="max-width: 700px;">
-                                    <h4 class="text-light text-uppercase font-weight-medium mb-3">FEAR OF BEKSLOY</h4>
-                                    <h3 class="display-4 text-white font-weight-semi-bold mb-4">EMBRACE YOUR FEAR</h3>
-                                    <a href="#shop" class="bti btn-light py-2 px-3">Shop Now</a>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="carousel-item" style="height: 410px;">
-                            <img class="img-fluid" src="img/promo5.JPEG" alt="Image">
-                            <div class="carousel-caption d-flex flex-column align-items-center justify-content-center">
-                                <div class="p-3" style="max-width: 700px;">
-                                    <h4 class="text-light text-uppercase font-weight-medium mb-3">FEAR OF BEKSLOY</h4>
-                                    <h3 class="display-4 text-white font-weight-semi-bold mb-4">EMBRACE YOUR FEAR</h3>
-                                    <a href="#shop" class="bti btn-light py-2 px-3">Shop Now</a>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="carousel-item" style="height: 410px;">
-                            <img class="img-fluid" src="img/promo6.JPEG" alt="Image">
-                            <div class="carousel-caption d-flex flex-column align-items-center justify-content-center">
-                                <div class="p-3" style="max-width: 700px;">
-                                    <h4 class="text-light text-uppercase font-weight-medium mb-3">FEAR OF BEKSLOY</h4>
-                                    <h3 class="display-4 text-white font-weight-semi-bold mb-4">EMBRACE YOUR FEAR</h3>
-                                    <a href="#shop" class="bti btn-light py-2 px-3">Shop Now</a>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="carousel-item" style="height: 410px;">
-                            <img class="img-fluid" src="img/promo8.JPEG" alt="Image">
-                            <div class="carousel-caption d-flex flex-column align-items-center justify-content-center">
-                                <div class="p-3" style="max-width: 700px;">
-                                    <h4 class="text-light text-uppercase font-weight-medium mb-3">FEAR OF BEKSLOY</h4>
-                                    <h3 class="display-4 text-white font-weight-semi-bold mb-4">EMBRACE YOUR FEAR</h3>
-                                    <a href="#shop" class="bti btn-light py-2 px-3">Shop Now</a>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="carousel-item" style="height: 410px;">
-                            <img class="img-fluid" src="img/promo0.JPEG" alt="Image">
-                            <div class="carousel-caption d-flex flex-column align-items-center justify-content-center">
-                                <div class="p-3" style="max-width: 700px;">
-                                    <h4 class="text-light text-uppercase font-weight-medium mb-3">FEAR OF BEKSLOY</h4>
-                                    <h3 class="display-4 text-white font-weight-semi-bold mb-4">EMBRACE YOUR FEAR</h3>
-                                    <a href="#shop" class="bti btn-light py-2 px-3">Shop Now</a>
-                                </div>
-                            </div>
-                        </div>
-                     
-                    </div>
-                    <a class="carousel-control-prev" href="#header-carousel" data-slide="prev">
-                        <div class="btn btn-dark" style="width: 45px; height: 45px;">
-                            <span class="carousel-control-prev-icon mb-n2"></span>
-                        </div>
-                    </a>
-                    <a class="carousel-control-next" href="#header-carousel" data-slide="next">
-                        <div class="btn btn-dark" style="width: 45px; height: 45px;">
-                            <span class="carousel-control-next-icon mb-n2"></span>
-                        </div>
-                    </a>
+                    <button onclick="viewDetails('${product.id}')">
+                        <i class="fas fa-info-circle"></i> View Details
+                    </button>
                 </div>
-            </div>
-        </div>
-    </div>
-  
-    <div class="container-fluid pt-5">
-        <div class="row px-xl-5 pb-3">
-            <div class="col-lg-3 col-md-6 col-sm-12 pb-1">
-                <div class="d-flex align-items-center border mb-4" style="padding: 30px;">
-                    <h1 class="fa fa-check text-primary m-0 mr-3"></h1>
-                    <h5 class="font-weight-semi-bold m-0">Quality Product</h5>
-                </div>
-            </div>
-            <div class="col-lg-3 col-md-6 col-sm-12 pb-1">
-                <div class="d-flex align-items-center border mb-4" style="padding: 30px;">
-                    <h1 class="fa fa-shipping-fast text-primary m-0 mr-2"></h1>
-                    <h5 class="font-weight-semi-bold m-0">Free Shipping</h5>
-                </div>
-            </div>
-            <div class="col-lg-3 col-md-6 col-sm-12 pb-1">
-                <div class="d-flex align-items-center border mb-4" style="padding: 30px;">
-                    <h1 class="fas fa-exchange-alt text-primary m-0 mr-3"></h1>
-                    <h5 class="font-weight-semi-bold m-0">3-Day Return</h5>
-                </div>
-            </div>
-            <div class="col-lg-3 col-md-6 col-sm-12 pb-1">
-                <div class="d-flex align-items-center border mb-4" style="padding: 30px;">
-                    <h1 class="fa fa-phone-volume text-primary m-0 mr-3"></h1>
-                    <h5 class="font-weight-semi-bold m-0">24/7 Support</h5>
-                </div>
-            </div>
-        </div>
-
-        <div class="container">
-            <header>
-                <div class="title" id="shop">Product List</div>
-                <div class="icon-cart">
-                    <i class="fas fa-shopping-cart"></i>
-                    <span class="cart-count">0</span>
-                </div>
-            </header>
-            <div class="listProduct">
-                <!-- Product items will be dynamically added here by JavaScript -->
-            </div>
-        </div>
+            `;
+            productGrid.appendChild(productCard);
+        });
     
-        <!-- Shopping Cart Tab -->
-        <div class="cartTab">
-            <h1>Shopping Cart</h1>
-            <div class="listCart">
-                <!-- Cart items will be dynamically added here by JavaScript -->
-            </div>
-            <div class="cartTotal">
-                <span>Total:</span> <span class="totalAmount">$0.00</span>
-            </div>
-            <div class="btn">
-                <button class="close">Close</button>
-                <button class="checkout-btn">Checkout</button>
-            </div>
-        </div>
-        
-        
-     
-
-
-
-    </div>
-    <div class="container-fluid bg-secondary my-5">
-        <div class="row justify-content-md-center py-5 px-xl-5">
-            <div class="col-md-6 col-12 py-5">
-                <div class="text-center mb-2 pb-2">
-                    <h2 class="section-title px-5 mb-3"><span class="bg-secondary px-2">Stay Updated</span></h2>
-                    <p>Feel free to join our broadcast</p>
-                </div>
-                <form id="subscribeForm" action="javascript:void(0);">
-                    <div class="input-group">
-                        <input type="text" class="form-control border-white p-4" placeholder="click Subscribe">
-                        <div class="input-group-append">
-                            <button type="submit" class="btn btn-primary px-4">Subscribe</button>
-                        </div>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div>
+        // Select size function
+        function selectSize(size, selectorId) {
+            const sizeOptions = document.querySelectorAll(`#${selectorId} .size-option`);
+            sizeOptions.forEach(option => option.classList.remove('selected'));
+            sizeOptions.forEach(option => {
+                if (option.textContent === size) {
+                    option.classList.add('selected');
+                }
+            });
+            selectedSizes[selectorId] = size;
+        }
     
-    <!-- Vendor Start -->
- 
-    <!-- Vendor End -->
-    <!-- Footer Start -->
-    <div class="container-fluid bg-secondary text-dark mt-5 pt-5" id="contact">
-        <div class="row px-xl-5 pt-5">
-            <div class="col-lg-4 col-md-12 mb-5 pr-3 pr-xl-5">
-                <a href="" class="text-decoration-none">
-                    <h1 class="mb-4 display-5 font-weight-semi-bold"><span
-                            class="text-primary font-weight-bold border border-white px-3 mr-1">AXT</span>ANXIETY</h1>
-                </a>
-                <p>Hi everyone, Jomreab sur!<br>
-                    I am Issac aka the founder of AXT.Thank you for all the supports</p>
-                <p class="mb-2"><i class="fa fa-map-marker-alt text-primary mr-3"></i>Phnom Penh Cambodia</p>
-                <p class="mb-2"><i class="fa fa-envelope text-primary mr-3"></i> anxiety03202024@gmail.com</p>
-                <p class="mb-0"><i class="fa fa-phone-alt text-primary mr-3"></i>+081255245 </p>
-            </div>
-            <div class="col-lg-8 col-md-12">
-                <div class="row">
-                    <div class="col-md-4 mb-5">
-                        <h5 class="font-weight-bold text-dark mb-4">Quick Links</h5>
-                        <div class="d-flex flex-column justify-content-start">
-                            <a class="text-dark mb-2" href="index.html"><i class="fa fa-angle-right mr-2"></i>Home</a>
-                            <a class="text-dark mb-2" href="product.html"><i class="fa fa-angle-right mr-2"></i>Our Shop</a>
-                            <a class="text-dark mb-2" href="cart.html"><i class="fa fa-angle-right mr-2"></i>Shopping Cart</a>
-                            <a class="text-dark mb-2" href="checkout.html"><i class="fa fa-angle-right mr-2"></i>Checkout</a>
-                            <a class="text-dark mb-2" href="#contact"><i class="fa fa-angle-right mr-2"></i>Contact Us</a>
-                        </div>
-                    </div>
-                    <div class="col-md-4 mb-5">
-                        <h5 class="font-weight-bold text-dark mb-4">Follow Us</h5>
-                        <div class="d-flex flex-column justify-content-start">
-                            <a class="text-dark mb-2" href="https://www.facebook.com/profile.php?id=61553381810843&mibextid=LQQJ4d"><i class="fab fa-facebook-f mr-2"></i>Facebook</a>
-                            <a class="text-dark mb-2" href="https://www.tiktok.com/@axt_anxiety?_t=8mixN47yW5C&_r=1"><i class="fab fa-tiktok mr-2"></i>Tik Tok</a>
-                            <a class="text-dark mb-2" href="https://www.instagram.com/anxiety.axt?igsh=MXQyYmNjOTAybmw2Zg%3D%3D&utm_source=qr"><i class="fab fa-instagram mr-2"></i>Instagram</a>
-                            <a class="text-dark mb-2" href="https://t.me/ISSAC2010"><i class="fab fa-telegram-plane mr-2"></i>Telegram</a>
-                        </div>
-                        
-                        
-                    </div>
-                    <div class="col-md-4 mb-5">
-                        <h5 class="font-weight-bold text-dark mb-4">Broadcast</h5>
-                        <form action="">
-                            <div class="form-group">
-                                <input type="text" class="form-control border-0 py-4" placeholder="Your Name" required="required" />
-                            </div>
-                            <div class="form-group">
-                                <input type="email" class="form-control border-0 py-4" placeholder="Your Email" required="required" />
-                            </div>
-                            <div>
-                                <button class="btn btn-primary btn-block border-0 py-3" type="submit">Subscribe Now</button>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-            </div>
-            
-			<div class="footer-bottom d-flex justify-content-center align-items-center flex-wrap">
-				<p class="footer-text m-0"><!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-Copyright &copy;<script>document.write(new Date().getFullYear());</script> In collaboration | with Mara Masita <i class="fa fa-heart-o" aria-hidden="true"></i> by <a href="https://www.instagram.com/x_cool_msa2/?hl=en" target="_blank">MM</a>
-<!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-</p>
-			</div>
-    </div>
-    <!-- Footer End -->
-
-
-    <!-- Back to Top -->
-    <a href="#" class="btn btn-primary back-to-top"><i class="fa fa-angle-double-up"></i></a>
-
-
+        // Select color function
+        function selectColor(color, selectorId) {
+            const colorOptions = document.querySelectorAll(`#${selectorId} .color-option`);
+            colorOptions.forEach(option => option.classList.remove('selected'));
+            colorOptions.forEach(option => {
+                if (option.textContent === color) {
+                    option.classList.add('selected');
+                }
+            });
+            selectedSizes[selectorId] = color;
+        }
     
-    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js"></script>
-    <script src="lib/easing/easing.min.js"></script>
-    <script src="lib/owlcarousel/owl.carousel.min.js"></script>
-
- 
-    <script src="mail/jqBootstrapValidation.min.js"></script>
-    <script src="mail/contact.js"></script>
-
-    <!-- Template Javascript -->
-    <script src="js/main.js"></script>
-    <script src="js/cart.js"></script>
-    <script src="./js/shop.js"></script>
+        // Add to cart function
+        function addToCart(productId, price, selectorId, imageSrc) {
+            const selection = selectedSizes[selectorId];
+            if (!selection) {
+                alert(`Please select a ${productId === '016' ? 'color' : 'size'}`);
+                return;
+            }
+    
+            const existingItem = cartItems.find(item => item.id === productId && item.size === selection);
+            if (existingItem) {
+                existingItem.quantity++;
+            } else {
+                cartItems.push({ id: productId, size: selection, price: price, image: imageSrc, quantity: 1 });
+            }
+    
+            // Save cart items to local storage
+            localStorage.setItem('cartItems', JSON.stringify(cartItems));
+    
+            updateCartDisplay();
+            updateTotal();
+    
+            // Ensure the cart remains open after adding items
+            document.getElementById('cart-dropdown').style.display = 'block';
+        }
+    
+        // Toggle cart visibility (only toggles when clicking the cart icon)
+        function toggleCart() {
+            const cartDropdown = document.getElementById('cart-dropdown');
+            cartDropdown.style.display = (cartDropdown.style.display === 'none' || cartDropdown.style.display === '') ? 'block' : 'none';
+        }
+    
+        // Update cart display
+        function updateCartDisplay() {
+            const cartItemsContainer = document.querySelector('.cart-items');
+            cartItemsContainer.innerHTML = ''; // Clear previous items
+    
+            cartItems.forEach(item => {
+                const itemDiv = document.createElement('div');
+                itemDiv.classList.add('cart-item');
+                itemDiv.innerHTML = `
+                    <div class="product-info">
+                        <img src="${item.image}" alt="${item.id}">
+                        <p>${item.id} - ${item.size ? `Size: ${item.size}` : `Color: ${item.size}`} - $${item.price.toFixed(2)}</p>
+                    </div>
+                    <div class="quantity-controls">
+                        <button onclick="changeQuantity('${item.id}', '${item.size}', -1)" class="quantity-btn">-</button>
+                        <span>${item.quantity}</span>
+                        <button onclick="changeQuantity('${item.id}', '${item.size}', 1)" class="quantity-btn">+</button>
+                    </div>
+                `;
+                cartItemsContainer.appendChild(itemDiv);
+            });
+    
+            document.getElementById('cart-count').textContent = cartItems.length;
+        }
+    
+        // Update total price
+        function updateTotal() {
+            const total = cartItems.reduce((sum, item) => sum + (item.price * item.quantity), 0) + deliveryFee;
+            document.getElementById('cart-total').textContent = `Total: $${total.toFixed(2)}`;
+        }
+    
+        // Change quantity in cart
+        function changeQuantity(productId, size, change) {
+            const item = cartItems.find(item => item.id === productId && item.size === size);
+            if (item) {
+                item.quantity += change;
+                if (item.quantity <= 0) {
+                    cartItems = cartItems.filter(cartItem => cartItem !== item);
+                }
+                // Save updated cart items to local storage
+                localStorage.setItem('cartItems', JSON.stringify(cartItems));
+    
+                updateCartDisplay();
+                updateTotal();
+            }
+        }
+    
+        // Dummy checkout function
+        function checkout() {
+            alert('Proceeding to checkout...');
+            window.location.href = 'checkout.html'; // Redirects to checkout.html
+        }
+    
+        // View Details function
+        function viewDetails(productId) {
+            let url = '';
+    
+            switch (productId) {
+                case '010':
+                    url = 'detail008.html'; // Link to detail page for product ID 010
+                    break;
+                case '011':
+                    url = 'detail011.html'; // Link to detail page for product ID 011
+                    break;
+                case '012':
+                    url = 'detail012.html'; // Link to detail page for product ID 012
+                    break;
+                case '013':
+                    url = 'detail013.html'; // Link to detail page for product ID 013
+                    break;
+                case '017':
+                    url = 'detail017.html'; // Link to detail page for product ID 017
+                    break;
+                case '018':
+                    url = 'detail018.html'; // Link to detail page for product ID 018
+                    break;
+                case '019':
+                    url = 'detail019.html'; // Link to detail page for product ID 019
+                    break;
+                case '016':
+                    url = 'detailcap.html'; // Link to detail page for product ID 016
+                    break;
+                    
+                default:
+                    alert('Details not available for this product');
+                    return; // Exit function if no detail page is defined
+            }
+    
+            window.location.href = url; // Redirect to the selected product detail page
+        }
+    
+        // Initial cart display update
+        updateCartDisplay();
+        updateTotal();
+    </script>
+    
 </body>
-
 </html>

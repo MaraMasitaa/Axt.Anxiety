@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Receipt</title>
+    <style>
+        body {
+            font-family: 'Courier New', Courier, monospace;
+            background-color: #111;
+            color: #fff;
+            margin: 0;
+            padding: 20px;
+            max-width: 800px;
+            margin: auto;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .logo {
+            height: 100px;
+            width: auto;
+        }
+
+        h1 {
+            font-size: 28px;
+            margin-bottom: 20px;
+            text-align: center;
+            letter-spacing: 1px;
+        }
+
+        .receipt-container {
+            background-color: #222;
+            padding: 20px;
+            border: 1px solid #333;
+        }
+
+        .receipt-item {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+        }
+
+        .receipt-item img {
+            width: 60px;
+            height: auto;
+            border: 1px solid #333;
+        }
+
+        .receipt-item-info {
+            flex-grow: 1;
+            margin-left: 20px;
+        }
+
+        .receipt-item-info h3 {
+            margin: 0;
+            font-size: 18px;
+        }
+
+        .receipt-item-info p {
+            margin: 5px 0;
+            font-size: 14px;
+        }
+
+        .total-container {
+            display: flex;
+            justify-content: space-between;
+            padding: 15px;
+            background-color: #333;
+            font-size: 18px;
+            color: #ff0099;
+        }
+
+        .thank-you {
+            text-align: center;
+            margin-top: 20px;
+            font-size: 18px;
+        }
+
+        .note {
+            text-align: center;
+            margin-top: 20px;
+            font-size: 16px;
+            background-color: #ff0099;
+            padding: 10px;
+            border-radius: 5px;
+        }
+
+        .telegram-link {
+            color: red;
+            text-decoration: underline;
+        }
+
+        .telegram-link:hover {
+            color: darkred;
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <img src="./img/axtt.PNG" alt="Logo" class="logo">
+    </header>
+    <h1>Order Receipt</h1>
+
+    <div class="receipt-container" id="receipt-container">
+        <!-- Cart items will be displayed here -->
+    </div>
+
+    <div class="total-container">
+        <p>Total:</p>
+        <p id="total-price"></p>
+    </div>
+
+    <p><strong>Name:</strong> <span id="name"></span></p>
+    <p><strong>Phone:</strong> <span id="phone"></span></p>
+    <p><strong>Address:</strong> <span id="address"></span></p>
+    <p><strong>Payment Method:</strong> <span id="payment-method"></span></p>
+
+    <div class="thank-you">
+        Thank you for your order!
+    </div>
+
+    <div class="note">
+        <p>Please take a screenshot of this receipt and send it to our Telegram:</p>
+        <p><a href="https://t.me/issacbrawley" target="_blank" class="telegram-link">https://t.me/issacbrawley</a></p>
+    </div>
+
+    <script>
+        // Retrieve order details from localStorage
+        const orderDetails = JSON.parse(localStorage.getItem('orderDetails'));
+        const cartItems = JSON.parse(localStorage.getItem('cart'));
+
+        if (orderDetails && cartItems) {
+            // Fill in customer details
+            document.getElementById('name').textContent = orderDetails.name;
+            document.getElementById('phone').textContent = orderDetails.phone;
+            document.getElementById('address').textContent = orderDetails.address;
+            document.getElementById('payment-method').textContent = orderDetails.paymentMethod;
+            document.getElementById('total-price').textContent = orderDetails.totalPrice;
+
+            // Display the cart items
+            const receiptContainer = document.getElementById('receipt-container');
+            cartItems.forEach(item => {
+                const receiptItem = document.createElement('div');
+                receiptItem.className = 'receipt-item';
+                receiptItem.innerHTML = `
+                    <img src="${item.image}" alt="${item.name}">
+                    <div class="receipt-item-info">
+                        <h3>${item.name}</h3>
+                        <p>Price: $${item.price.toFixed(2)}</p>
+                    </div>
+                `;
+                receiptContainer.appendChild(receiptItem);
+            });
+        } else {
+            alert('No order details found.');
+        }
+    </script>
+</body>
+
+</html>

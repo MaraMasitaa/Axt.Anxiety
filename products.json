@@ -1,46 +1,11 @@
 [
    
-    {
-      "id": 1,
-      "name": "006 Front",
-      "price": 35.00,
-      "image": "img/006front.png"
-    },
-    {
-      "id": 2,
-      "name": "006 Back",
-      "price": 35.00,
-      "image": "img/006back.png"
-    },
-    {
-      "id": 3,
-      "name": "007 Back",
-      "price": 35.00,
-      "image": "img/007.png"
-    },
-    {
-      "id": 4,
-      "name": "007 Front",
-      "price": 35.00,
-      "image": "img/007-front.png"
-    },
-    {
-      "id": 5,
-      "name": "008 Back",
-      "price": 25.00,
-      "image": "img/008.png"
-    },
+
     {
       "id": 6,
       "name": "008 Front",
       "price": 25.00,
       "image": "img/008front.png"
-    },
-    {
-      "id": 7,
-      "name": "009 Back",
-      "price": 25.00,
-      "image": "img/009front.png"
     },
     {
       "id": 8,
@@ -55,13 +20,6 @@
       "image": "img/010front.JPEG"
     },
     {
-      "id": 10,
-      "name": "010 Back",
-      "price": 25.00,
-      "image": "img/010back.JPEG"
-
-    },
-    {
       "id": 11,
       "name": "011 Front",
       "price": 25.00,
@@ -69,24 +27,16 @@
 
     },
     {
-      "id": 12,
-      "name": "011 Back",
-      "price": 25.00,
-      "image": "img/011back.JPEG"
-
+      "id": 4,
+      "name": "007 Front",
+      "price": 35.00,
+      "image": "img/007-front.png"
     },
     {
       "id": 13,
       "name": "012 Front",
       "price": 38.00,
       "image": "img/012front.JPEG"
-
-    },
-    {
-      "id": 14,
-      "name": "012 Back",
-      "price": 38.00,
-      "image": "img/012back.JPEG"
 
     },
     {

@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Checkout - Anxiety</title>
+    <link rel="icon" type="image/png" href="/img/logoaxtbg.png">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" integrity="sha384-k6RqeWeci5ZR/Lv4MR0sA0FfDOMp8tzh4mZnXpsBQhB5quWEM3dBo64w5zEnybu6" crossorigin="anonymous">
+    <link rel="stylesheet" href="css/index.css"/>
+    <style>
+        /* Global Styles */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f8f9fa;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .container {
+            max-width: 800px;
+            width: 100%;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            overflow-y: auto;
+        }
+
+        h1 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 20px;
+        }
+
+        .logo {
+            display: block;
+            margin: 0 auto 20px;
+            width: 150px;
+        }
+
+        .cart-items {
+            margin-bottom: 20px;
+        }
+
+        .cart-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 10px 0;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .cart-item img {
+            width: 50px;
+            height: auto;
+            margin-right: 10px;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+            color: #555;
+        }
+
+        input[type="text"],
+        input[type="email"],
+        input[type="tel"],
+        select {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            transition: border-color 0.3s;
+        }
+
+        input[type="text"]:focus,
+        input[type="email"]:focus,
+        input[type="tel"]:focus,
+        select:focus {
+            border-color: #28a745;
+            outline: none;
+        }
+
+        .total {
+            font-weight: bold;
+            text-align: right;
+            margin-top: 10px;
+        }
+
+        .checkout-button {
+            display: block;
+            width: 100%;
+            padding: 10px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: bold;
+            margin-top: 10px;
+            transition: background-color 0.3s, transform 0.2s;
+        }
+
+        .checkout-button:first-child {
+            background-color: #28a745;
+            color: white;
+        }
+
+        .checkout-button:first-child:hover {
+            background-color: #218838;
+            transform: translateY(-2px);
+        }
+
+        .checkout-button:last-child {
+            background-color: #dc3545;
+            color: white;
+        }
+
+        .checkout-button:last-child:hover {
+            background-color: #c82333;
+            transform: translateY(-2px);
+        }
+
+        .payment-message {
+            margin-top: 10px;
+            font-weight: bold;
+            color: #555;
+            text-align: center;
+        }
+        
+        @media (max-width: 600px) {
+            .container {
+                padding: 10px;
+            }
+
+            .cart-item img {
+                width: 40px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <img src="/img/logoaxtbg.png" alt="Logo" class="logo">
+        <h1>Checkout</h1>
+      
+        <div class="form-group">
+            <label for="name">Full Name</label>
+            <input type="text" id="name" placeholder="Enter your name" required>
+        </div>
+
+        <div class="form-group">
+            <label for="phone">Phone Number</label>
+            <input type="tel" id="phone" placeholder="Enter your phone number" required>
+        </div>
+
+        <div class="form-group">
+            <label for="address">Shipping Address</label>
+            <input type="text" id="address" placeholder="Enter your address" required>
+        </div>
+
+        <div class="form-group">
+            <label for="payment">Payment Method</label>
+            <select id="payment" required>
+                <option value="" disabled selected>Select a payment method</option>
+                <option value="cash">Cash</option>
+                <option value="ABA">ABA</option>
+            </select>
+        </div>
+        
+        <div class="payment-message" id="payment-message"></div>
+        
+        <div class="cart-items" id="checkout-cart-items">
+            <!-- Cart items will be populated here by JavaScript -->
+        </div>
+        <p>Delivery fees: $2.00</p>
+        <p class="total" id="checkout-total">Total: $0.00</p>
+        <button class="checkout-button" onclick="placeOrder()">Place Order</button>
+        <button class="checkout-button" onclick="window.location.href='index.html'">Cancel</button>
+    </div>
+
+    <script>
+        // Retrieve cart items from local storage or any other storage method
+        const cartItems = JSON.parse(localStorage.getItem('cartItems')) || [];
+        const deliveryFee = 2.00;
+
+        // Display cart items in checkout
+        const checkoutCartItems = document.getElementById('checkout-cart-items');
+        cartItems.forEach(item => {
+            const itemDiv = document.createElement('div');
+            itemDiv.classList.add('cart-item');
+            itemDiv.innerHTML = `
+                <img src="${item.image}" alt="${item.id}">
+                <p>${item.id} - ${item.size ? `Size: ${item.size}` : `Color: ${item.color}`} - $${item.price.toFixed(2)} (x${item.quantity})</p>
+            `;
+            checkoutCartItems.appendChild(itemDiv);
+        });
+
+        // Calculate total
+        function calculateTotal() {
+            return cartItems.reduce((sum, item) => sum + (item.price * item.quantity), 0) + deliveryFee;
+        }
+
+        document.getElementById('checkout-total').textContent = `Total: $${calculateTotal().toFixed(2)}`;
+
+        // Show payment message
+        const paymentSelect = document.getElementById('payment');
+        paymentSelect.addEventListener('change', function() {
+            const messageElement = document.getElementById('payment-message');
+            if (this.value === 'ABA') {
+                messageElement.textContent = 'Please screenshot your receipt and send it to us on Instagram.';
+            } else if (this.value === 'cash') {
+                messageElement.textContent = 'You can pay cash upon delivery.';
+            } else {
+                messageElement.textContent = ''; // Clear message if no payment method is selected
+            }
+        });
+
+        // Place order function
+        function placeOrder() {
+            const name = document.getElementById('name').value;
+            const phone = document.getElementById('phone').value;
+            const address = document.getElementById('address').value;
+            const payment = document.getElementById('payment').value;
+
+            // Basic validation
+            if (!name || !phone || !address || !payment) {
+                alert('Please fill in all fields');
+                return;
+            }
+
+            // Optional: Validate phone number format (example: simple length check)
+            if (phone.length < 10) {
+                alert('Please enter a valid phone number.');
+                return;
+            }
+
+            // Store order details in local storage
+            const orderDetails = {
+                name: name,
+                phone: phone,
+                address: address,
+                paymentMethod: payment,
+                cart: cartItems,
+                totalAmount: calculateTotal().toFixed(2)
+            };
+
+            localStorage.setItem('orderDetails', JSON.stringify(orderDetails));
+            
+            alert('Thank you for your order! We will contact you soon.');
+            // Clear cart
+            localStorage.removeItem('cartItems');
+            // Redirect to a confirmation or receipt page
+            window.location.href = 'receipt.html'; // Change as necessary
+        }
+    </script>
+</body>
+</html>

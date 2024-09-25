@@ -1,0 +1,116 @@
+/* Cart Icon Styles */
+.cart-icon-container {
+    position: relative;
+}
+
+.cart-icon {
+    font-size: 24px;
+    color: #000000; /* Icon color */
+    text-decoration: none;
+    position: relative;
+}
+
+.cart-count {
+    position: absolute;
+    top: -10px;
+    right: -10px;
+    background-color: #ffcc00; /* Gold background */
+    color: #3B5323; /* Army green text */
+    border-radius: 50%;
+    padding: 5px 8px;
+    font-size: 12px;
+    font-weight: bold;
+}
+
+/* Cart Dropdown Styles */
+.cart-dropdown {
+    position: absolute;
+    right: 0;
+    top: 40px;
+    width: 300px;
+    background-color: #ffffff;
+    border: 1px solid #3B5323; /* Army green border */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    z-index: 100;
+    display: none; /* Initially hidden */
+}
+
+.cart-items {
+    max-height: 200px;
+    overflow-y: auto;
+    padding: 15px;
+    border-bottom: 1px solid #f0f0f0;
+}
+
+.cart-items .cart-item {
+    margin-bottom: 10px;
+}
+
+.cart-items p {
+    font-size: 14px;
+    color: #333333;
+    margin: 0;
+}
+
+.cart-total {
+    padding: 15px;
+    text-align: right;
+    background-color: #f9f9f9;
+}
+
+.cart-total p {
+    font-size: 16px;
+    font-weight: bold;
+    margin: 0;
+    color: #3B5323; /* Army green text */
+}
+
+/* Checkout Button Styles */
+.checkout-btn {
+    width: 100%;
+    background-color: #3B5323; /* Army green */
+    color: #ffffff;
+    border: none;
+    padding: 10px 0;
+    text-align: center;
+    cursor: pointer;
+    font-size: 16px;
+    border-bottom-left-radius: 8px;
+    border-bottom-right-radius: 8px;
+}
+
+.checkout-btn:hover {
+    background-color: #ffcc00; /* Gold hover */
+    color: #3B5323; /* Army green text */
+}
+
+/* Show dropdown on hover */
+.cart-icon-container:hover .cart-dropdown {
+    display: block;
+}
+
+/* Optional: Styles for product items in the cart dropdown */
+.cart-item img {
+    width: 50px;
+    height: auto;
+    margin-right: 10px;
+    border-radius: 5px;
+}
+
+.cart-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.cart-item p {
+    font-size: 14px;
+    color: #333333;
+    margin: 0;
+}
+
+.cart-item p:last-child {
+    font-weight: bold;
+    color: #ffcc00; /* Gold price */
+}

@@ -1,0 +1,418 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        body {
+            font-family: 'Courier New', Courier, monospace;
+            background-color: #111;
+            color: #fff;
+            margin: 0;
+            padding: 20px;
+            max-width: 800px;
+            margin: auto;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .logo {
+            height: 100px;
+            width: auto;
+        }
+
+        .back-link {
+            margin-bottom: 20px;
+        }
+
+        .back-link a {
+            color: #fff;
+            text-decoration: none;
+            font-size: 16px;
+        }
+
+        .product-container {
+            display: flex;
+            flex-direction: row;
+            align-items: flex-start;
+            justify-content: space-between;
+            gap: 20px;
+        }
+
+        .product-image img {
+            width: 100%;
+            max-width: 300px;
+            height: auto;
+            border: 1px solid #333;
+            margin-bottom: 20px;
+            transition: transform 0.3s ease;
+        }
+
+        .product-image img:hover {
+            transform: scale(1.05);
+        }
+
+        .product-details {
+            text-align: left;
+            width: 100%;
+            max-width: 400px;
+        }
+
+        .stock-status {
+            display: flex;
+            align-items: center;
+            font-size: 14px;
+            margin-bottom: 10px;
+        }
+
+        .in-stock-dot {
+            height: 10px;
+            width: 10px;
+            background-color: green;
+            border-radius: 50%;
+            display: inline-block;
+            margin-right: 5px;
+        }
+
+        .product-details h2 {
+            font-size: 24px;
+            margin: 10px 0;
+        }
+
+        .price {
+            font-size: 20px;
+            margin: 10px 0;
+        }
+
+        .add-to-cart {
+            background-color: #000;
+            color: #fff;
+            border: 2px solid #fff;
+            padding: 10px 20px;
+            font-size: 14px;
+            cursor: pointer;
+            margin-bottom: 20px;
+            width: 100%;
+            max-width: 200px;
+            text-align: center;
+            transition: background-color 0.3s ease;
+        }
+
+        .add-to-cart:hover {
+            background-color: #333;
+        }
+
+        .additional-links {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 20px;
+        }
+
+        .additional-links a {
+            color: #fff;
+            text-decoration: none;
+            font-size: 14px;
+        }
+
+        .button-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-top: 20px;
+            gap: 20px;
+        }
+
+        button {
+            background-color: #111;
+            color: #fff;
+            border: 2px solid #333;
+            padding: 10px 20px;
+            font-size: 16px;
+            font-family: 'Courier New', Courier, monospace;
+            cursor: pointer;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: background-color 0.3s ease, transform 0.3s ease;
+            width: 150px;
+            margin: 10px;
+        }
+
+        button:hover {
+            background-color: #333;
+            transform: translateY(-2px);
+        }
+
+        button:active {
+            transform: scale(0.98);
+            background-color: #000;
+        }
+
+        .size-icon {
+            margin-top: 10px;
+            cursor: pointer;
+        }
+
+        .size-icon .size-text {
+            background-color: #ff0099;
+            color: #fff;
+            padding: 3px 8px;
+            border-radius: 50%;
+            font-size: 14px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .size-options {
+            background-color: #333;
+            color: #fff;
+            padding: 10px;
+            margin-top: 10px;
+            border: 1px solid #fff;
+            width: fit-content;
+            display: none;
+            border-radius: 4px;
+        }
+
+        .size-options p {
+            margin: 0 0 5px;
+            font-weight: bold;
+            font-size: 16px;
+        }
+
+        .size-options ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .size-options ul li {
+            margin-bottom: 5px;
+            font-size: 14px;
+        }
+
+        .size-options ul li:hover {
+            color: #ff0099;
+            cursor: pointer;
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        .image-carousel {
+            margin-top: 20px;
+            width: 100%;
+            max-width: 500px;
+            margin: auto;
+        }
+
+        .carousel-container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .carousel-images {
+            display: flex;
+            overflow: hidden;
+            width: 100%;
+            justify-content: center;
+        }
+
+        .carousel-images img {
+            width: 80px;
+            height: auto;
+            margin: 0 5px;
+            cursor: pointer;
+            border: 2px solid transparent;
+            transition: border 0.3s ease;
+        }
+
+        .carousel-images img:hover {
+            border: 2px solid #fff;
+        }
+
+        .carousel-button {
+            background-color: transparent;
+            color: #fff;
+            font-size: 24px;
+            border: none;
+            cursor: pointer;
+            padding: 10px;
+            transition: background-color 0.3s ease;
+        }
+
+        .carousel-button:hover {
+            background-color: #333;
+        }
+
+        .additional-products {
+            margin-top: 30px;
+            text-align: center;
+        }
+
+        .additional-products h3 {
+            font-size: 20px;
+            margin-bottom: 15px;
+        }
+
+        .products-grid {
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+        }
+
+        .product-item {
+            width: 150px;
+            margin-bottom: 20px;
+        }
+
+        .product-item img {
+            width: 100%;
+            height: auto;
+            border: 1px solid #333;
+        }
+
+        .cart-icon {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            font-size: 30px;
+            color: #fff;
+            cursor: pointer;
+        }
+    </style>
+    <title>Product Page</title>
+</head>
+<body>
+    <header>
+        <img src="./img/axtt.PNG" alt="Logo" class="logo">
+    </header>
+    <div class="back-link">
+        <a href="index.html">&lt; Back</a>
+    </div>
+    <div class="product-container">
+        <div class="product-image">
+            <img src="./img/A20.png" alt="013 front" id="main-product-image">
+        </div>
+        <div class="product-details">
+            <div class="stock-status">
+                <span class="in-stock-dot"></span> IN STOCK
+            </div>
+            <h2>019</h2>
+            <p class="price">$25.00</p>
+            <button class="add-to-cart" onclick="addToCart()">BUY NOW</button>
+            <div class="additional-links">
+                <a href="#">QUESTIONS??</a>
+                <a href="#">SIZE CHART</a>
+            </div>
+            <div class="size-icon" onclick="toggleSizes()">
+                <span class="size-text">size</span>
+            </div>
+            <div id="size-options" class="size-options hidden">
+                <p>Available sizes:</p>
+                <ul>
+                    <li>Small (S)</li>
+                    <li>Medium (M)</li>
+                    <li>Large (L)</li>
+                    <li>Extra Large (XL)</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div class="image-carousel">
+        <div class="carousel-container">
+            <button class="carousel-button left" onclick="prevImage()">&#10094;</button>
+            <div class="carousel-images">
+                <img src="./img/A20detail1.png" alt="Product Image 1" onclick="changeImage(this)">
+                <img src="./img/A20detail2.png" alt="Product Image 1" onclick="changeImage(this)">
+                <img src="./img/A20detail3.png" alt="Product Image 1" onclick="changeImage(this)">
+                <img src="./img/A20detail4.png" alt="Product Image 1" onclick="changeImage(this)">
+                
+            </div>
+            <button class="carousel-button right" onclick="nextImage()">&#10095;</button>
+        </div>
+    </div>
+
+    <div class="button-container">
+        <button onclick="window.location.href='detail018.html';">Previous</button>
+        <button onclick="goToHome()">Home</button>
+        <button onclick="window.location.href='detailcap.html';">Next</button>
+    </div>
+    <script>
+        let currentImageIndex = 0;
+        const images = document.querySelectorAll('.carousel-images img');
+        const mainImage = document.getElementById('main-product-image');
+
+        function changeImage(imgElement) {
+            mainImage.src = imgElement.src;
+            updateImageIndex(imgElement);
+        }
+
+        function updateImageIndex(imgElement) {
+            currentImageIndex = Array.from(images).indexOf(imgElement);
+        }
+
+        function prevImage() {
+            currentImageIndex = (currentImageIndex - 1 + images.length) % images.length;
+            mainImage.src = images[currentImageIndex].src;
+        }
+
+        function nextImage() {
+            currentImageIndex = (currentImageIndex + 1) % images.length;
+            mainImage.src = images[currentImageIndex].src;
+        }
+
+        function addToCart() {
+            // Get product details
+            const product = {
+                id: '019', // Updated product ID for detail013.html
+                name: '019', // Updated product name
+                price: 25.00,
+                image: mainImage.src
+            };
+
+            // Retrieve the existing cart from localStorage or create a new one
+            const cart = JSON.parse(localStorage.getItem('cart')) || [];
+
+            // Add the new product to the cart
+            cart.push(product);
+
+            // Save the updated cart to localStorage
+            localStorage.setItem('cart', JSON.stringify(cart));
+
+            // Redirect to checkout page
+            window.location.href = 'check.html';
+        }
+
+        function toggleSizes() {
+            const sizeOptions = document.getElementById('size-options');
+            
+            if (sizeOptions.classList.contains('hidden')) {
+                sizeOptions.classList.remove('hidden');
+                sizeOptions.style.display = 'block';
+            } else {
+                sizeOptions.classList.add('hidden');
+                sizeOptions.style.display = 'none';
+            }
+        }
+
+        function goToHome() {
+            window.location.href = 'index.html';
+        }
+
+        document.querySelector('.carousel-button.left').addEventListener('click', prevImage);
+        document.querySelector('.carousel-button.right').addEventListener('click', nextImage);
+
+        images.forEach((img, index) => {
+            img.addEventListener('click', () => {
+                changeImage(img);
+            });
+        });
+    </script>
+</body>
+</html>

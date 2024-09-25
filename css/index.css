@@ -1,0 +1,251 @@
+/* General Body Styling */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f5f5f5;
+    color: #333;
+    margin: 0;
+    padding: 0;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Header Styling */
+.header {
+    display: flex;
+    justify-content: space-between; /* Distribute space between logo and icons */
+    align-items: center;
+    padding: 20px;
+    background-color: #fff;
+    color: #000;
+    border-bottom: 1px solid #ccc; /* Adds a subtle divider */
+}
+
+.logo img {
+    height: 100px;
+    width: auto;
+}
+
+.header-icons {
+    display: flex;
+    align-items: center;
+}
+
+/* Icons styling */
+.header-icons .icon {
+    margin-left: 20px; /* More space between icons */
+    font-size: 24px;
+    color: #000;
+    text-decoration: none;
+    position: relative;
+    cursor: pointer;
+    transition: color 0.3s ease;
+}
+
+.header-icons .icon:hover {
+    color: #ffcc00;
+}
+
+/* Cart Count Styling */
+.cart-count {
+    position: absolute;
+    top: -10px;
+    right: -10px;
+    background-color: #ffcc00;
+    color: #3B5323;
+    border-radius: 50%;
+    padding: 5px 10px;
+    font-size: 12px;
+    font-weight: bold; /* Make the count stand out more */
+}
+
+/* Cart Dropdown Styling */
+.cart-dropdown {
+    display: none;
+    position: absolute;
+    top: 60px;
+    right: 20px;
+    background-color: white;
+    border: 1px solid #3B5323;
+    border-radius: 8px; /* Make corners more rounded */
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); /* Softer shadow for depth */
+    width: 320px;
+    max-height: 400px;
+    overflow-y: auto;
+    z-index: 1000;
+}
+
+.cart-dropdown .cart-items {
+    padding: 15px; /* Extra padding for better spacing */
+    max-height: 300px;
+    overflow-y: auto;
+}
+
+.cart-dropdown p {
+    margin: 0;
+    padding: 10px;
+    border-bottom: 1px solid #f0f0f0;
+    font-size: 16px;
+    line-height: 1.5;
+}
+
+.cart-dropdown .total {
+    font-weight: bold;
+    text-align: center;
+    padding: 15px;
+    background-color: #f0f0f0;
+    border-radius: 0 0 8px 8px; /* Rounded corners at the bottom */
+    border-top: 1px solid #ccc; /* Adds divider between items and total */
+}
+
+/* Product Grid and Card Styling */
+.product-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+    padding: 20px;
+    justify-content: center;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.product-card {
+    text-align: center;
+    background-color: #fff;
+    padding: 15px;
+    border: 1px solid #3B5323;
+    border-radius: 8px;
+    transition: transform 0.3s, box-shadow 0.3s ease;
+}
+
+.product-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1); /* Increased shadow for more depth */
+}
+
+.product-card img {
+    width: 100%;
+    height: auto;
+    border-radius: 8px;
+}
+
+.product-card h3 {
+    font-size: 18px;
+    margin: 10px 0;
+    color: #3B5323;
+}
+
+.product-card .price {
+    color: #ffcc00;
+    font-size: 16px;
+    font-weight: bold;
+}
+
+/* Size Selector Styling */
+.size-selector {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin: 10px 0;
+}
+
+.size-option {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    border: 2px solid #3B5323;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: background-color 0.3s, border-color 0.3s;
+    color: #3B5323;
+}
+
+.size-option.selected {
+    background-color: #ffcc00;
+    border-color: #ffcc00;
+}
+
+.size-option:hover {
+    background-color: #ffcc00;
+    border-color: #ffcc00;
+}
+
+/* Product Actions and Buttons */
+.product-actions {
+    display: flex;
+    justify-content: space-around;
+    margin-top: 10px;
+}
+
+button {
+    background-color: #3B5323;
+    color: #fff;
+    padding: 10px 15px; /* Increased padding for better touch targets */
+    border: none;
+    border-radius: 5px;
+    font-size: 14px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+button i {
+    margin-right: 5px;
+}
+
+button:hover {
+    background-color: #ffcc00;
+    color: #3B5323;
+}
+
+/* Footer Styling */
+.footer {
+    background-color: #3B5323;
+    color: #fff;
+    text-align: center;
+    padding: 20px;
+    margin-top: auto;
+}
+
+.footer p {
+    margin: 0;
+    font-size: 14px;
+}
+
+.footer a {
+    color: #ffcc00;
+    text-decoration: none;
+    margin: 0 10px;
+}
+
+.footer a:hover {
+    text-decoration: underline;
+}
+
+/* Responsive Adjustments */
+@media (max-width: 1024px) {
+    .product-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 768px) {
+    .product-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .header {
+        flex-direction: column; /* Stack header elements */
+        align-items: flex-start; /* Align items to start */
+    }
+
+    .header-icons .icon {
+        margin-left: 5px; /* Reduce margin for smaller screens */
+        font-size: 18px;
+    }
+
+    .cart-dropdown {
+        right: 10px; /* Adjust dropdown position for smaller screens */
+    }
+}
