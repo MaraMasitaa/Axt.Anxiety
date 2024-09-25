@@ -82,7 +82,6 @@
 
     <script>
         const products = [
-          
             { id: '012', name: '012', price: 38.00, img: './img/012front.JPEG' },
             { id: '013', name: '013', price: 40.00, img: './img/013front.JPEG' },
             { id: '017', name: '017', price: 25.00, img: './img/A18.png' },
@@ -107,9 +106,9 @@
                 // If product is cap, show color options instead of size
                 selectionHtml = `
                     <div class="color-selector" id="color-${product.id}">
-                        <div class="color-option" onclick="selectColor('Pink', 'color-${product.id}')">Pink</div>
-                        <div class="color-option" onclick="selectColor('Black', 'color-${product.id}')">Black</div>
-                        <div class="color-option" onclick="selectColor('Camo', 'color-${product.id}')">Camo</div>
+                        ${product.colors.map(color => `
+                            <div class="color-option" onclick="selectColor('${color}', 'color-${product.id}')">${color}</div>
+                        `).join('')}
                     </div>
                 `;
             } else {
@@ -119,7 +118,7 @@
                         <div class="size-option" onclick="selectSize('S', 'size-${product.id}')">S</div>
                         <div class="size-option" onclick="selectSize('M', 'size-${product.id}')">M</div>
                         <div class="size-option" onclick="selectSize('L', 'size-${product.id}')">L</div>
-                           <div class="size-option" onclick="selectSize('XL', 'size-${product.id}')">XL</div>
+                        <div class="size-option" onclick="selectSize('XL', 'size-${product.id}')">XL</div>
                     </div>
                 `;
             }
@@ -201,13 +200,20 @@
             const cartItemsContainer = document.querySelector('.cart-items');
             cartItemsContainer.innerHTML = ''; // Clear previous items
     
+            if (cartItems.length === 0) {
+                cartItemsContainer.innerHTML = '<p>Your cart is empty.</p>';
+                document.getElementById('cart-count').textContent = '0';
+                document.getElementById('cart-total').textContent = 'Total: $0.00';
+                return;
+            }
+    
             cartItems.forEach(item => {
                 const itemDiv = document.createElement('div');
                 itemDiv.classList.add('cart-item');
                 itemDiv.innerHTML = `
                     <div class="product-info">
                         <img src="${item.image}" alt="${item.id}">
-                        <p>${item.id} - ${item.size ? `Size: ${item.size}` : `Color: ${item.size}`} - $${item.price.toFixed(2)}</p>
+                        <p>${item.id} - ${item.size} - $${item.price.toFixed(2)}</p>
                     </div>
                     <div class="quantity-controls">
                         <button onclick="changeQuantity('${item.id}', '${item.size}', -1)" class="quantity-btn">-</button>
@@ -255,10 +261,10 @@
     
             switch (productId) {
                 case '010':
-                    url = 'detail008.html'; 
+                    url = 'detail008.html';
                     break;
                 case '011':
-                    url = 'detail011.html'; 
+                    url = 'detail011.html';
                     break;
                 case '012':
                     url = 'detail012.html'; // Link to detail page for product ID 012
@@ -278,7 +284,6 @@
                 case '016':
                     url = 'detailcap.html'; // Link to detail page for product ID 016
                     break;
-                    
                 default:
                     alert('Details not available for this product');
                     return; // Exit function if no detail page is defined
@@ -291,6 +296,7 @@
         updateCartDisplay();
         updateTotal();
     </script>
+    
     
 </body>
 </html>
