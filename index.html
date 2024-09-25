@@ -103,7 +103,7 @@
             let selectionHtml = '';
     
             if (product.id === '016') {
-                // If product is cap, show color options instead of size
+                // If product is a cap, show color options instead of size
                 selectionHtml = `
                     <div class="color-selector" id="color-${product.id}">
                         ${product.colors.map(color => `
@@ -260,29 +260,23 @@
             let url = '';
     
             switch (productId) {
-                case '010':
-                    url = 'detail008.html';
-                    break;
-                case '011':
-                    url = 'detail011.html';
-                    break;
                 case '012':
-                    url = 'detail012.html'; // Link to detail page for product ID 012
+                    url = 'detail012.html';
                     break;
                 case '013':
-                    url = 'detail013.html'; // Link to detail page for product ID 013
+                    url = 'detail013.html';
                     break;
                 case '017':
-                    url = 'detail017.html'; // Link to detail page for product ID 017
+                    url = 'detail017.html';
                     break;
                 case '018':
-                    url = 'detail018.html'; // Link to detail page for product ID 018
+                    url = 'detail018.html';
                     break;
                 case '019':
-                    url = 'detail019.html'; // Link to detail page for product ID 019
+                    url = 'detail019.html';
                     break;
                 case '016':
-                    url = 'detailcap.html'; // Link to detail page for product ID 016
+                    url = 'detailcap.html';
                     break;
                 default:
                     alert('Details not available for this product');
@@ -293,8 +287,10 @@
         }
     
         // Initial cart display update
-        updateCartDisplay();
-        updateTotal();
+        document.addEventListener('DOMContentLoaded', () => {
+            updateCartDisplay();
+            updateTotal();
+        });
     </script>
     
     
