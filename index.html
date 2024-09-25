@@ -83,12 +83,12 @@
     <script>
         const products = [
           
-            { id: '012', name: '012', price: 35.00, img: './img/012front.JPEG' },
-            { id: '013', name: '013', price: 48.00, img: './img/013front.JPEG' },
+            { id: '012', name: '012', price: 38.00, img: './img/012front.JPEG' },
+            { id: '013', name: '013', price: 40.00, img: './img/013front.JPEG' },
             { id: '017', name: '017', price: 25.00, img: './img/A18.png' },
             { id: '018', name: '018', price: 25.00, img: './img/A19.png' },
             { id: '019', name: '019', price: 25.00, img: './img/A20.png' },
-            { id: '016', name: 'Cap', price: 25.00, img: './img/cap.png', colors: ['Pink', 'Black', 'Camo'] }
+            { id: '016', name: 'Cap', price: 15.00, img: './img/cap.png', colors: ['Pink', 'Black', 'Camo'] }
         ];
     
         const productGrid = document.getElementById('product-grid');
@@ -119,6 +119,7 @@
                         <div class="size-option" onclick="selectSize('S', 'size-${product.id}')">S</div>
                         <div class="size-option" onclick="selectSize('M', 'size-${product.id}')">M</div>
                         <div class="size-option" onclick="selectSize('L', 'size-${product.id}')">L</div>
+                           <div class="size-option" onclick="selectSize('XL', 'size-${product.id}')">XL</div>
                     </div>
                 `;
             }
