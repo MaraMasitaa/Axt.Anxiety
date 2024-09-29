@@ -3,7 +3,6 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="icon" type="image/png" href="/img/logoaxtbg.png">
     <style>
         body {
             font-family: 'Courier New', Courier, monospace;
@@ -297,31 +296,23 @@
     </div>
     <div class="product-container">
         <div class="product-image">
-            <img src="./img/012fronthood.png" alt="012 front" id="main-product-image">
+            <img src="./img/cappink.PNG" alt="013 front" id="main-product-image">
         </div>
         <div class="product-details">
             <div class="stock-status">
                 <span class="in-stock-dot"></span> IN STOCK
             </div>
-            <h2>012</h2>
-            <p class="price">$38.00</p>
+            <h2>015</h2>
+            <p class="price">$15.00</p>
             <button class="add-to-cart" onclick="addToCart()">BUY NOW</button>
-
             <div class="additional-links">
-               
+                <a href="#">QUESTIONS??</a>
+                <a href="#">SIZE CHART</a>
             </div>
             <div class="size-icon" onclick="toggleSizes()">
-                <span class="size-text">size</span>
+                <span class="size-text">color</span>
             </div>
-            <div id="size-options" class="size-options hidden">
-                <p>Available sizes:</p>
-                <ul>
-                    <li>Small (S)</li>
-                    <li>Medium (M)</li>
-                    <li>Large (L)</li>
-                    <li>Extra Large (XL)</li>
-                </ul>
-            </div>
+          
         </div>
     </div>
 
@@ -329,95 +320,91 @@
         <div class="carousel-container">
             <button class="carousel-button left" onclick="prevImage()">&#10094;</button>
             <div class="carousel-images">
-                <img src="./img/012fronthood.png" alt="Product Image 1" onclick="changeImage(this)">
-                <img src="./img/012backhood.png" alt="Product Image 2" onclick="changeImage(this)">
-                <img src="./img/012label.png" alt="Product Image 3" onclick="changeImage(this)">
-                <img src="./img/012logo.png" alt="Product Image 4" onclick="changeImage(this)">
-                <img src="./img/012detail.png" alt="Product Image 5" onclick="changeImage(this)">
-                <img src="./img/012detailsss.png" alt="Product Image 6" onclick="changeImage(this)">
+                <img src="./img/cappinkkkk.png" alt="Product Image 1" onclick="changeImage(this)">
+                <img src="./img/capdpink.PNG" alt="Product Image 1" onclick="changeImage(this)">
+                
+                
             </div>
             <button class="carousel-button right" onclick="nextImage()">&#10095;</button>
         </div>
     </div>
 
     <div class="button-container">
-        <button onclick="window.location.href='detail011.html';">Previous</button>
+        <button onclick="window.location.href='detailcap.html';">Previous</button>
         <button onclick="goToHome()">Home</button>
-        <button onclick="window.location.href='detail013.html';">Next</button>
+        <button onclick="window.location.href='detailcapblack.html';">Next</button>
     </div>
-
-
     <script>
-    let currentImageIndex = 0;
+        let currentImageIndex = 0;
         const images = document.querySelectorAll('.carousel-images img');
         const mainImage = document.getElementById('main-product-image');
 
-        // Change main product image
         function changeImage(imgElement) {
             mainImage.src = imgElement.src;
             updateImageIndex(imgElement);
         }
 
-        // Update the current image index
         function updateImageIndex(imgElement) {
             currentImageIndex = Array.from(images).indexOf(imgElement);
         }
 
-        // Show the previous image in the carousel
         function prevImage() {
             currentImageIndex = (currentImageIndex - 1 + images.length) % images.length;
             mainImage.src = images[currentImageIndex].src;
         }
 
-        // Show the next image in the carousel
         function nextImage() {
             currentImageIndex = (currentImageIndex + 1) % images.length;
             mainImage.src = images[currentImageIndex].src;
         }
 
-        // Add the product to the cart (updated)
         function addToCart() {
+            // Get product details
             const product = {
-                id: '012',
-                name: '012',
-                price: 38.00,
+                id: 'cap', // Updated product ID for detail013.html
+                name: '015', // Updated product name
+                price: 15.00,
                 image: mainImage.src
+               
             };
 
-            // Retrieve the cart from localStorage or create an empty array
-            let cart = JSON.parse(localStorage.getItem('cart')) || [];
+            // Retrieve the existing cart from localStorage or create a new one
+            const cart = JSON.parse(localStorage.getItem('cart')) || [];
 
             // Add the new product to the cart
             cart.push(product);
 
-            // Save the updated cart back to localStorage
+            // Save the updated cart to localStorage
             localStorage.setItem('cart', JSON.stringify(cart));
 
             // Redirect to checkout page
             window.location.href = 'check.html';
         }
 
-        // Toggle the size options display
         function toggleSizes() {
             const sizeOptions = document.getElementById('size-options');
-            sizeOptions.classList.toggle('hidden');
+            
+            if (sizeOptions.classList.contains('hidden')) {
+                sizeOptions.classList.remove('hidden');
+                sizeOptions.style.display = 'block';
+            } else {
+                sizeOptions.classList.add('hidden');
+                sizeOptions.style.display = 'none';
+            }
         }
 
         function goToHome() {
-            window.location.href = 'index.html'; // Redirect to the home page
+            window.location.href = 'index.html';
         }
 
-        // Event listeners for carousel navigation
         document.querySelector('.carousel-button.left').addEventListener('click', prevImage);
         document.querySelector('.carousel-button.right').addEventListener('click', nextImage);
 
-        // Set event listeners for image clicks
-        images.forEach((img) => {
+        images.forEach((img, index) => {
             img.addEventListener('click', () => {
                 changeImage(img);
             });
         });
-        
     </script>
 </body>
 </html>

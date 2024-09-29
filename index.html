@@ -87,7 +87,9 @@
             { id: '017', name: '017', price: 25.00, img: './img/A18.png' },
             { id: '018', name: '018', price: 25.00, img: './img/A19.png' },
             { id: '019', name: '019', price: 25.00, img: './img/A20.png' },
-            { id: '016', name: 'Cap', price: 15.00, img: './img/cap.png', colors: ['Pink', 'Black', 'Camo'] }
+            { id: '016', name: '016', price: 15.00, img: './img/camo.png', colors: ['Pink', 'Black', 'Camo'] },
+            { id: '014', name: '014', price: 15.00, img: './img/cappinkkkk.PNG', colors: ['Pink', 'Black', 'Camo'] },
+            { id: '015', name: '015', price: 15.00, img: './img/capblack.png', colors: ['Pink', 'Black', 'Camo'] }
         ];
     
         const productGrid = document.getElementById('product-grid');
@@ -102,7 +104,7 @@
     
             let selectionHtml = '';
     
-            if (product.id === '016') {
+            if (product.id === '016' || product.id === '014' || product.id === '015') { 
                 // If product is a cap, show color options instead of size
                 selectionHtml = `
                     <div class="color-selector" id="color-${product.id}">
@@ -129,7 +131,7 @@
                 <p class="price">$${product.price.toFixed(2)}</p>
                 ${selectionHtml}
                 <div class="product-actions">
-                    <button onclick="addToCart('${product.id}', ${product.price}, '${product.id === '016' ? 'color' : 'size'}-${product.id}', '${product.img}')">
+                    <button onclick="addToCart('${product.id}', ${product.price}, '${product.id === '016' || product.id === '014' || product.id === '015' ? 'color' : 'size'}-${product.id}', '${product.img}')">
                         <i class="fas fa-cart-plus"></i> Add to Cart
                     </button>
                     <button onclick="viewDetails('${product.id}')">
@@ -168,7 +170,7 @@
         function addToCart(productId, price, selectorId, imageSrc) {
             const selection = selectedSizes[selectorId];
             if (!selection) {
-                alert(`Please select a ${productId === '016' ? 'color' : 'size'}`);
+                alert(`Please select a ${productId === '016' || productId === '014' || productId === '015' ? 'color' : 'size'}`);
                 return;
             }
     
@@ -278,20 +280,27 @@
                 case '016':
                     url = 'detailcap.html';
                     break;
+                case '015':
+                    url = 'detailcappink.html';
+                    break;
+                case '014':
+                    url = 'detailcapblack.html';
+                    break;
                 default:
-                    alert('Details not available for this product');
-                    return; // Exit function if no detail page is defined
+                    url = 'details.html'; // Fallback page
+                    break;
             }
     
-            window.location.href = url; // Redirect to the selected product detail page
+            window.location.href = url; // Redirect to product detail page
         }
     
-        // Initial cart display update
-        document.addEventListener('DOMContentLoaded', () => {
+        // On page load
+        window.addEventListener('load', function () {
             updateCartDisplay();
             updateTotal();
         });
     </script>
+    
     
     
 </body>
