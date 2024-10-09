@@ -47,6 +47,12 @@
             font-weight: bold;
             border: 1px solid #000;
         }
+        .sold-out {
+            border: 2px solid red;
+            color: red;
+            pointer-events: none; /* Disable clicking on sold-out items */
+        }
+        
     </style>
 </head>
 <body>
@@ -78,211 +84,180 @@
         <p>&copy; 2024 Anxiety. All rights reserved.</p>
         <p><a href="#">Privacy Policy</a> | <a href="#">Terms of Service</a></p>
     </footer>
+
     <script>
         const products = [
-         { id: '012', name: '012', price: 38.00, img: './img/012front.JPEG' },
-         { id: '013', name: '013', price: 40.00, img: './img/013front.JPEG' },
-         { id: '017', name: '017', price: 25.00, img: './img/A18.png' },
-         { id: '018', name: '018', price: 25.00, img: './img/A19.png' },
-         { id: '019', name: '019', price: 25.00, img: './img/A20.png' },
-         { id: '016', name: '016', price: 15.00, img: './img/camo.png' },
-         { id: '015', name: '015', price: 15.00, img: './img/cappinkkkk.png' },
-         { id: '014', name: '014', price: 15.00, img: './img/capblack.png' }
-     ];
-     
-         const productGrid = document.getElementById('product-grid');
-         const deliveryFee = 2.00;
-         let cartItems = JSON.parse(localStorage.getItem('cartItems')) || [];
-         const selectedSizes = {};
-     
-         // Render products
-         products.forEach(product => {
-             const productCard = document.createElement('div');
-             productCard.className = 'product-card';
-     
-             let selectionHtml = '';
-     
-             // Check if the product is a cap (014, 015, 016)
-             if (['014', '015', '016'].includes(product.id)) {
-                 // No size or color options for caps
-                 selectionHtml = '';
-             } else {
-                 // For other products, show size options
-                 selectionHtml = `
-                     <div class="size-selector" id="size-${product.id}">
-                         <div class="size-option" onclick="selectSize('S', 'size-${product.id}')">S</div>
-                         <div class="size-option" onclick="selectSize('M', 'size-${product.id}')">M</div>
-                         <div class="size-option" onclick="selectSize('L', 'size-${product.id}')">L</div>
-                         <div class="size-option" onclick="selectSize('XL', 'size-${product.id}')">XL</div>
-                     </div>
-                 `;
-             }
-     
-             productCard.innerHTML = `
-                 <img src="${product.img}" alt="${product.name}">
-                 <h3>${product.name}</h3>
-                 <p class="price">$${product.price.toFixed(2)}</p>
-                 ${selectionHtml}
-                 <div class="product-actions">
-                     <button onclick="addToCart('${product.id}', ${product.price}, '${selectionHtml ? 'size' : ''}-${product.id}', '${product.img}')">
-                         <i class="fas fa-cart-plus"></i> Add to Cart
-                     </button>
-                     <button onclick="viewDetails('${product.id}')">
-                         <i class="fas fa-info-circle"></i> View Details
-                     </button>
-                 </div>
-             `;
-             productGrid.appendChild(productCard);
-         });
-     
-         // Select size function (only for non-cap products)
-         function selectSize(size, selectorId) {
-             const sizeOptions = document.querySelectorAll(`#${selectorId} .size-option`);
-             sizeOptions.forEach(option => option.classList.remove('selected'));
-             sizeOptions.forEach(option => {
-                 if (option.textContent === size) {
-                     option.classList.add('selected');
-                 }
-             });
-             selectedSizes[selectorId] = size;
-         }
-     
-         // Add to cart function
-         function addToCart(productId, price, selectorId, imageSrc) {
-             // Caps (014, 015, 016) do not require selection
-             const isCap = ['014', '015', '016'].includes(productId);
-             const selection = selectedSizes[selectorId] || (isCap ? productId : null);
-     
-             if (!selection) {
-                 alert('Please select a size');
-                 return;
-             }
-     
-             const existingItem = cartItems.find(item => item.id === productId && item.size === selection);
-             if (existingItem) {
-                 existingItem.quantity++;
-             } else {
-                 cartItems.push({ id: productId, size: isCap ? 'One Size' : selection, price: price, image: imageSrc, quantity: 1 });
-             }
-     
-             // Save cart items to local storage
-             localStorage.setItem('cartItems', JSON.stringify(cartItems));
-     
-             updateCartDisplay();
-             updateTotal();
-     
-             // Ensure the cart remains open after adding items
-             document.getElementById('cart-dropdown').style.display = 'block';
-         }
-     
-         // Toggle cart visibility (only toggles when clicking the cart icon)
-         function toggleCart() {
-             const cartDropdown = document.getElementById('cart-dropdown');
-             cartDropdown.style.display = (cartDropdown.style.display === 'none' || cartDropdown.style.display === '') ? 'block' : 'none';
-         }
-     
-         // Update cart display
-         function updateCartDisplay() {
-             const cartItemsContainer = document.querySelector('.cart-items');
-             cartItemsContainer.innerHTML = ''; // Clear previous items
-     
-             if (cartItems.length === 0) {
-                 cartItemsContainer.innerHTML = '<p>Your cart is empty.</p>';
-                 document.getElementById('cart-count').textContent = '0';
-                 document.getElementById('cart-total').textContent = 'Total: $0.00';
-                 return;
-             }
-     
-             cartItems.forEach(item => {
-                 const itemDiv = document.createElement('div');
-                 itemDiv.classList.add('cart-item');
-                 itemDiv.innerHTML = `
-                     <div class="product-info">
-                         <img src="${item.image}" alt="${item.id}">
-                         <p>${item.id} - ${item.size} - $${item.price.toFixed(2)}</p>
-                     </div>
-                     <div class="quantity-controls">
-                         <button onclick="changeQuantity('${item.id}', '${item.size}', -1)" class="quantity-btn">-</button>
-                         <span>${item.quantity}</span>
-                         <button onclick="changeQuantity('${item.id}', '${item.size}', 1)" class="quantity-btn">+</button>
-                     </div>
-                 `;
-                 cartItemsContainer.appendChild(itemDiv);
-             });
-     
-             document.getElementById('cart-count').textContent = cartItems.length;
-         }
-     
-         // Update total price
-         function updateTotal() {
-             const total = cartItems.reduce((sum, item) => sum + (item.price * item.quantity), 0) + deliveryFee;
-             document.getElementById('cart-total').textContent = `Total: $${total.toFixed(2)}`;
-         }
-     
-         // Change quantity in cart
-         function changeQuantity(productId, size, change) {
-             const item = cartItems.find(item => item.id === productId && item.size === size);
-             if (item) {
-                 item.quantity += change;
-                 if (item.quantity <= 0) {
-                     cartItems = cartItems.filter(cartItem => cartItem !== item);
-                 }
-                 // Save updated cart items to local storage
-                 localStorage.setItem('cartItems', JSON.stringify(cartItems));
-     
-                 updateCartDisplay();
-                 updateTotal();
-             }
-         }
-     
-         // Dummy checkout function
-         function checkout() {
-             alert('Proceeding to checkout...');
-             window.location.href = 'checkout.html'; // Redirects to checkout.html
-         }
-     
-         // View Details function
-         function viewDetails(productId) {
-             let url = '';
-     
-             switch (productId) {
-                 case '012':
-                     url = 'detail012.html';
-                     break;
-                 case '013':
-                     url = 'detail013.html';
-                     break;
-                 case '017':
-                     url = 'detail017.html';
-                     break;
-                 case '018':
-                     url = 'detail018.html';
-                     break;
-                 case '019':
-                     url = 'detail019.html';
-                     break;
-                 case '016':
-                     url = 'detailcap.html';
-                     break;
-                 case '014':
-                     url = 'detailcapblack.html';
-                     break;
-                 case '015':
-                     url = 'detailcappink.html';
-                     break;
-                 default:
-                     url = 'details.html'; // Fallback page
-                     break;
-             }
-     
-             window.location.href = url; // Redirect to product detail page
-         }
-     
-         // On page load
-         window.addEventListener('load', function () {
-             updateCartDisplay();
-             updateTotal();
-         });
-     </script>
+            { id: '012', name: '012', price: 38.00, img: './img/012front.JPEG' },
+            { id: '013', name: '013', price: 40.00, img: './img/013front.JPEG' },
+            { id: '017', name: '017', price: 25.00, img: './img/A18.png' },
+            { id: '018', name: '018', price: 25.00, img: './img/A19.png' },
+            { id: '019', name: '019', price: 25.00, img: './img/A20.png' },
+            { id: '016', name: '016', price: 15.00, img: './img/camo.png' },
+            { id: '015', name: '015', price: 15.00, img: './img/cappinkkkk.png' },
+            { id: '014', name: '014', price: 15.00, img: './img/capblack.png' }
+        ];
+
+        const productGrid = document.getElementById('product-grid');
+        const deliveryFee = 2.00;
+        let cartItems = JSON.parse(localStorage.getItem('cartItems')) || [];
+        const selectedSizes = {};
+
+        // Render products
+        products.forEach(product => {
+            const productCard = document.createElement('div');
+            productCard.className = 'product-card';
+
+            let selectionHtml = '';
+
+            // Check if the product is a cap (014, 015, 016)
+            if (['014', '015', '016'].includes(product.id)) {
+                selectionHtml = '';
+            } else {
+                selectionHtml = `
+                    <div class="size-selector" id="size-${product.id}">
+                        <div class="size-option" onclick="selectSize('S', 'size-${product.id}', '${product.id}')">S</div>
+                        <div class="size-option" onclick="selectSize('M', 'size-${product.id}', '${product.id}')">M</div>
+                        <div class="size-option" onclick="selectSize('L', 'size-${product.id}', '${product.id}')">L</div>
+                        <div class="size-option" onclick="selectSize('XL', 'size-${product.id}', '${product.id}')">XL</div>
+                    </div>
+                `;
+            }
+
+            productCard.innerHTML = `
+                <img src="${product.img}" alt="${product.name}">
+                <h3>${product.name}</h3>
+                <p class="price">$${product.price.toFixed(2)}</p>
+                ${selectionHtml}
+                <div class="product-actions">
+                    <button onclick="addToCart('${product.id}', ${product.price}, '${selectionHtml ? 'size' : ''}-${product.id}', '${product.img}')">
+                        <i class="fas fa-cart-plus"></i> Add to Cart
+                    </button>
+                    <button onclick="viewDetails('${product.id}')">
+                        <i class="fas fa-info-circle"></i> View Details
+                    </button>
+                </div>
+            `;
+            productGrid.appendChild(productCard);
+        });
+
+        // Select size function (only for non-cap products)
+        function selectSize(size, selectorId, productId) {
+            const sizeOptions = document.querySelectorAll(`#${selectorId} .size-option`);
+
+            // Check if product 012 and size XL are selected
+            if (productId === '012' && size === 'XL') {
+                alert('Size XL for this product is sold out. Please choose a different size.');
+                sizeOptions.forEach(option => option.classList.remove('selected'));
+                const xlOption = document.querySelector(`#${selectorId} .size-option:nth-child(4)`); // Select the XL option
+                xlOption.classList.add('sold-out');
+                return;
+            }
+
+            // Otherwise, proceed with normal size selection
+            sizeOptions.forEach(option => option.classList.remove('selected'));
+            sizeOptions.forEach(option => {
+                if (option.textContent === size) {
+                    option.classList.add('selected');
+                }
+            });
+            selectedSizes[selectorId] = size;
+        }
+
+        // Add to cart function
+        function addToCart(productId, price, selectorId, imageSrc) {
+            const isCap = ['014', '015', '016'].includes(productId);
+            const selection = selectedSizes[selectorId] || (isCap ? productId : null);
+
+            if (!selection) {
+                alert('Please select a size');
+                return;
+            }
+
+            const existingItem = cartItems.find(item => item.id === productId && item.size === selection);
+            if (existingItem) {
+                existingItem.quantity++;
+            } else {
+                cartItems.push({ id: productId, size: isCap ? 'One Size' : selection, price: price, image: imageSrc, quantity: 1 });
+            }
+
+            localStorage.setItem('cartItems', JSON.stringify(cartItems));
+
+            updateCartDisplay();
+            updateTotal();
+            document.getElementById('cart-dropdown').style.display = 'block';
+        }
+
+        // Toggle cart visibility
+        function toggleCart() {
+            const cartDropdown = document.getElementById('cart-dropdown');
+            cartDropdown.style.display = (cartDropdown.style.display === 'none' || cartDropdown.style.display === '') ? 'block' : 'none';
+        }
+
+        // Update cart display
+        function updateCartDisplay() {
+            const cartItemsContainer = document.querySelector('.cart-items');
+            cartItemsContainer.innerHTML = ''; // Clear previous items
+
+            if (cartItems.length === 0) {
+                cartItemsContainer.innerHTML = '<p>Your cart is empty.</p>';
+                document.getElementById('cart-count').textContent = '0';
+                document.getElementById('cart-total').textContent = 'Total: $0.00';
+                return;
+            }
+
+            cartItems.forEach(item => {
+                const itemDiv = document.createElement('div');
+                itemDiv.classList.add('cart-item');
+                itemDiv.innerHTML = `
+                    <div class="product-info">
+                        <img src="${item.image}" alt="${item.id}">
+                        <div>
+                            <p>${item.id} (${item.size})</p>
+                            <p>$${item.price.toFixed(2)}</p>
+                        </div>
+                    </div>
+                    <div class="quantity-controls">
+                        <button class="quantity-btn" onclick="changeQuantity('${item.id}', '${item.size}', -1)">-</button>
+                        <span>${item.quantity}</span>
+                        <button class="quantity-btn" onclick="changeQuantity('${item.id}', '${item.size}', 1)">+</button>
+                    </div>
+                `;
+                cartItemsContainer.appendChild(itemDiv);
+            });
+
+            document.getElementById('cart-count').textContent = cartItems.length;
+        }
+
+        // Change quantity of items in cart
+        function changeQuantity(productId, size, delta) {
+            const item = cartItems.find(item => item.id === productId && item.size === size);
+            if (!item) return;
+
+            item.quantity += delta;
+            if (item.quantity <= 0) {
+                cartItems = cartItems.filter(i => i !== item);
+            }
+
+            localStorage.setItem('cartItems', JSON.stringify(cartItems));
+            updateCartDisplay();
+            updateTotal();
+        }
+
+        // Update total price
+        function updateTotal() {
+            const total = cartItems.reduce((sum, item) => sum + (item.price * item.quantity), 0) + deliveryFee;
+            document.getElementById('cart-total').textContent = `Total: $${total.toFixed(2)}`;
+        }
+
+        // Checkout button functionality
+        function checkout() {
+            alert('Proceeding to checkout');
+            // Redirect to checkout page here
+        }
+
+        // Initialize cart display when page loads
+        updateCartDisplay();
+        updateTotal();
+    </script>
 </body>
 </html>
